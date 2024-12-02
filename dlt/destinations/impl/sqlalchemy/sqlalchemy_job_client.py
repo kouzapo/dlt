@@ -256,15 +256,18 @@ class SqlalchemyJobClient(SqlJobClientWithStagingDataset):
                 q = q.where(table_obj.c[schema_name_col] == schema_name)
             inserted_at_col = self.schema.naming.normalize_identifier("inserted_at")
             q = q.order_by(table_obj.c[inserted_at_col].desc())
-            with self.sql_client.execute_query(q) as cur:
-                row = cur.fetchone()
-                if row is None:
-                    return None
+            try:
+                with self.sql_client.execute_query(q) as cur:
+                    row = cur.fetchone()
+                    if row is None:
+                        return None
 
-                # TODO: Decode compressed schema str if needed
-                return StorageSchemaInfo.from_normalized_mapping(
-                    row._mapping, self.schema.naming  # type: ignore[attr-defined]
-                )
+                    # TODO: Decode compressed schema str if needed
+                    return StorageSchemaInfo.from_normalized_mapping(
+                        row._mapping, self.schema.naming  # type: ignore[attr-defined]
+                    )
+            except Exception as e:
+                logger.error("Error fetching schema from storage: %s", e)
 
     def get_stored_schema_by_hash(self, version_hash: str) -> Optional[StorageSchemaInfo]:
         return self._get_stored_schema(version_hash)
@@ -298,13 +301,17 @@ class SqlalchemyJobClient(SqlJobClientWithStagingDataset):
             .order_by(loads_table_obj.c[c_load_id].desc())
         )
 
-        with self.sql_client.execute_query(query) as cur:
-            row = cur.fetchone()
-            if not row:
-                return None
-            mapping = dict(row._mapping)  # type: ignore[attr-defined]
+        try:
+            with self.sql_client.execute_query(query) as cur:
+                row = cur.fetchone()
+                if not row:
+                    return None
+                mapping = dict(row._mapping)  # type: ignore[attr-defined]
 
-        return StateInfo.from_normalized_mapping(mapping, self.schema.naming)
+            return StateInfo.from_normalized_mapping(mapping, self.schema.naming)
+        except Exception as e:
+            logger.error("Error fetching state from storage: %s", e)
+            return None
 
     def _from_db_type(
         self, db_type: str, precision: Optional[int], scale: Optional[int]

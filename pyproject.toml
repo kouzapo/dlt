@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "dlt"
-version = "1.4.1a0"
+version = "1.4.2"
 description = "dlt is an open-source python-first scalable data loading library that does not require any backend to run."
 authors = ["dltHub Inc. <services@dlthub.com>"]
 maintainers = [ "Marcin Rudolf <marcin@dlthub.com>", "Adrian Brudaru <adrian@dlthub.com>", "Anton Burnashev <anton@dlthub.com>", "David Scharf <david@dlthub.com>" ]
 readme = "README.md"
 license = "Apache-2.0"
 homepage = "https://github.com/dlt-hub"
-repository = "https://github.com/dlt-hub/dlt"
+repository = "https://github.com/kouzapo/dlt"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
