@@ -1,4 +1,4 @@
-from typing import TypedDict, cast, Any, Optional, Dict, Sequence, Mapping, Union
+from typing import cast, Any, Optional, Dict, Sequence, Mapping, Union
 from typing_extensions import Self
 
 from dlt.common import logger
@@ -19,6 +19,8 @@ from dlt.common.schema.typing import (
     MERGE_STRATEGIES,
     TTableReferenceParam,
 )
+
+from dlt.common.typing import TypedDict
 from dlt.common.schema.utils import (
     DEFAULT_WRITE_DISPOSITION,
     merge_column,
@@ -37,7 +39,8 @@ from dlt.extract.exceptions import (
     InconsistentTableTemplate,
 )
 from dlt.extract.incremental import Incremental, TIncrementalConfig
-from dlt.extract.items import TFunHintTemplate, TTableHintTemplate, TableNameMeta, ValidateItem
+from dlt.extract.items import TFunHintTemplate, TTableHintTemplate, TableNameMeta
+from dlt.extract.items_transform import ValidateItem
 from dlt.extract.utils import ensure_table_schema_columns, ensure_table_schema_columns_hint
 from dlt.extract.validation import create_item_validator
 

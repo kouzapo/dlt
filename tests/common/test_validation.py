@@ -10,7 +10,6 @@ from typing import (
     Literal,
     Mapping,
     Sequence,
-    TypedDict,
     TypeVar,
     Optional,
     Union,
@@ -24,7 +23,7 @@ from dlt.common.schema.typing import (
     TWriteDispositionConfig,
 )
 from dlt.common.schema.utils import simple_regex_validator
-from dlt.common.typing import DictStrStr, StrStr, TDataItem, TSortOrder, TColumnNames
+from dlt.common.typing import DictStrStr, StrStr, TDataItem, TSortOrder, TColumnNames, TypedDict
 
 from dlt.common.validation import validate_dict, validate_dict_ignoring_xkeys
 
@@ -111,7 +110,7 @@ def test_doc() -> TTestRecord:
 
 def test_validate_schema_cases() -> None:
     with open(
-        "tests/common/cases/schemas/eth/ethereum_schema_v10.yml", mode="r", encoding="utf-8"
+        "tests/common/cases/schemas/eth/ethereum_schema_v11.yml", mode="r", encoding="utf-8"
     ) as f:
         schema_dict: TStoredSchema = yaml.safe_load(f)
 

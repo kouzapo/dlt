@@ -18,12 +18,12 @@ from typing import (
     Sequence,
     Tuple,
     TypeVar,
-    TypedDict,
     Mapping,
     Literal,
 )
 from typing_extensions import NotRequired
 
+from dlt.common.typing import TypedDict
 from dlt.common.configuration import configspec
 from dlt.common.configuration import known_sections
 from dlt.common.configuration.container import Container
@@ -446,7 +446,7 @@ class TPipelineLocalState(TypedDict, total=False):
     _last_extracted_hash: str
     """Hash of state that was recently synced with destination"""
     initial_cwd: str
-    """Current working dir when pipeline was instantiated for a first time"""
+    """Run dir when pipeline was instantiated for a first time, defaults to cwd on OSS run context"""
 
 
 class TPipelineState(TVersionedState, total=False):
