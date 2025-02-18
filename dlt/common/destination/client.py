@@ -190,7 +190,7 @@ class DestinationClientDwhConfiguration(DestinationClientConfiguration):
     """How to handle replace disposition for this destination, can be classic or staging"""
     staging_dataset_name_layout: str = "%s_staging"
     """Layout for staging dataset, where %s is replaced with dataset name. placeholder is optional"""
-    enable_dataset_name_normalization: bool = True
+    enable_dataset_name_normalization: bool = False
     """Whether to normalize the dataset name. Affects staging dataset as well."""
 
     def _bind_dataset_name(
